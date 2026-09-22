@@ -496,15 +496,41 @@ export default async function handler(
           },
 
           body: JSON.stringify({
-            bridge_secret:
-              sheetWebhookSecret,
+  bridge_secret:
+    sheetWebhookSecret,
 
-            delivery_id:
-              deliveryId,
+  delivery_id:
+    deliveryId,
 
-            order:
-              normalizedOrder
-          })
+  order:
+    normalizedOrder,
+
+  debug_raw: {
+    order_keys:
+      Object.keys(event?.data || {}),
+
+    customer:
+      event?.data?.customer ?? null,
+
+    shipping:
+      event?.data?.shipping ?? null,
+
+    shipping_address:
+      event?.data?.shipping_address ?? null,
+
+    delivery_address:
+      event?.data?.delivery_address ?? null,
+
+    payment_address:
+      event?.data?.payment_address ?? null,
+
+    address:
+      event?.data?.address ?? null,
+
+    extra_fields:
+      event?.data?.extra_fields ?? null
+  }
+})
         }
       );
 
