@@ -279,10 +279,11 @@ function normalizeOrder(event) {
     ])
   );
 
-  const items =
-    order.items ??
-    order.line_items ??
-    [];
+const items =
+  order.items ??
+  order.line_items ??
+  order.variants ??
+  [];
 
   return {
     event_name:
