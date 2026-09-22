@@ -171,19 +171,28 @@ function normalizeOrder(event) {
     customer.extraFields
   );
 
-  const firstAddressLine = firstNonEmpty(
-    shipping.first_line,
-    shipping.firstLine,
-    shipping.address_line_1,
-    shipping.addressLine1,
-    shipping.address1,
-    shipping.line1,
-    shipping.street,
-    shipping.street_address,
-    shipping.streetAddress,
-    shipping.address,
-    shipping.full_address,
-    shipping.fullAddress,
+ const firstAddressLine = firstNonEmpty(
+  shipping.first_line,
+  shipping.firstLine,
+  shipping.address_line_1,
+  shipping.addressLine1,
+  shipping.address1,
+  shipping.line1,
+  shipping.street,
+  shipping.street_address,
+  shipping.streetAddress,
+  shipping.address,
+  shipping.full_address,
+  shipping.fullAddress,
+
+  // YouCan Morocco checkout address fields
+  shipping.location,
+  shipping.region,
+  shipping.state,
+
+  customer.location,
+  customer.region,
+  customer.state,
 
     order.address_line_1,
     order.addressLine1,
@@ -227,13 +236,21 @@ function normalizeOrder(event) {
   );
 
   const address = [
-    firstAddressLine,
-    secondAddressLine
-  ]
-    .filter(Boolean)
-    .map(value => String(value).trim())
-    .filter(Boolean)
-    .join(", ") || null;
+  firstAddressLine,
+  secondAddressLine
+]
+  .filter(Boolean)
+  .map(value =>
+    String(value)
+      .trim()
+      .replace(/,\s*$/, "")
+  )
+  .filter(Boolean)
+  .filter(
+    (value, index, array) =>
+      array.indexOf(value) === index
+  )
+  .join(", ") || null;
 
   const phone = firstNonEmpty(
     customer.phone,
