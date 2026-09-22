@@ -423,7 +423,7 @@ export default async function handler(
       rawBody.toString("utf8")
     );
   } catch {
-    console.log(
+    console.error(
   "YOUCAN_ADDRESS_DEBUG",
   JSON.stringify({
     event_name: event?.event_name,
