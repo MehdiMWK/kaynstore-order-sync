@@ -423,6 +423,36 @@ export default async function handler(
       rawBody.toString("utf8")
     );
   } catch {
+    console.log(
+  "YOUCAN_ADDRESS_DEBUG",
+  JSON.stringify({
+    event_name: event?.event_name,
+
+    order_keys:
+      Object.keys(event?.data || {}),
+
+    customer:
+      event?.data?.customer || null,
+
+    shipping:
+      event?.data?.shipping || null,
+
+    shipping_address:
+      event?.data?.shipping_address || null,
+
+    delivery_address:
+      event?.data?.delivery_address || null,
+
+    payment_address:
+      event?.data?.payment_address || null,
+
+    address:
+      event?.data?.address || null,
+
+    extra_fields:
+      event?.data?.extra_fields || null
+  })
+);
     return response.status(400).json({
       error: "invalid_json"
     });
