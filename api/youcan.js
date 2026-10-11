@@ -350,22 +350,56 @@ const items =
       order.shipping_status ??
       null,
 
-    items: items.map(item => ({
-      name:
-        item.name ??
-        item.title ??
-        item.product_name ??
-        null,
+   items: items.map(item => ({
+  name:
+    item.name ??
+    item.title ??
+    item.product_name ??
+    item.product?.name ??
+    item.product?.title ??
+    null,
 
-      quantity:
-        Number(
-          item.quantity ?? 1
-        ),
+  quantity:
+    Number(
+      item.quantity ?? 1
+    ),
 
-      price:
-        item.price ??
-        null
-    }))
+  price:
+    item.price ??
+    item.unit_price ??
+    null,
+
+  product_id:
+    item.product_id ??
+    item.product?.id ??
+    null,
+
+  variant_id:
+    item.variant_id ??
+    item.variant?.id ??
+    null,
+
+  sku:
+    item.sku ??
+    item.variant?.sku ??
+    item.product?.sku ??
+    null,
+
+  variant_name:
+    item.variant_name ??
+    item.variant_title ??
+    item.variant?.name ??
+    item.variant?.title ??
+    null,
+
+  variant_options:
+    item.variant_options ??
+    item.options ??
+    item.variants ??
+    item.attributes ??
+    item.variant?.options ??
+    null
+}))
   };
 }
 
