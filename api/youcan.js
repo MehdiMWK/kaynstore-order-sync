@@ -350,8 +350,10 @@ const items =
       order.shipping_status ??
       null,
 
-   items: items.map(item => ({
+   
+items: items.map(item => ({
   name:
+    item.variant?.product?.name ??
     item.name ??
     item.title ??
     item.product_name ??
@@ -359,47 +361,49 @@ const items =
     item.product?.title ??
     null,
 
-  quantity:
-    Number(
-      item.quantity ?? 1
-    ),
+  quantity: Number(item.quantity ?? 1),
 
   price:
     item.price ??
+    item.variant?.price ??
     item.unit_price ??
     null,
 
   product_id:
+    item.variant?.product_id ??
+    item.variant?.product?.id ??
     item.product_id ??
     item.product?.id ??
     null,
 
   variant_id:
-    item.variant_id ??
+    item.product_variant_id ??
     item.variant?.id ??
+    item.variant_id ??
     null,
 
   sku:
-    item.sku ??
     item.variant?.sku ??
+    item.sku ??
     item.product?.sku ??
     null,
 
   variant_name:
-    item.variant_name ??
-    item.variant_title ??
-    item.variant?.name ??
-    item.variant?.title ??
+    Object.values(item.variant?.variations ?? {})
+      .filter(Boolean)
+      .join(" + ") ||
+    item.variant_name ||
+    item.variant?.title ||
     null,
 
   variant_options:
+    item.variant?.variations ??
     item.variant_options ??
     item.options ??
-    item.variants ??
     item.attributes ??
-    item.variant?.options ??
     null
-}))
+})),
+
   };
 }
 
