@@ -563,6 +563,18 @@ export default async function handler(
 
   debug_raw: {
    
+normalized_debug: {
+  order_ref: normalizedOrder.order_ref,
+  items: normalizedOrder.items.map(item => ({
+    name: item.name,
+    quantity: item.quantity,
+    product_id: item.product_id,
+    variant_id: item.variant_id,
+    variant_name: item.variant_name,
+    variant_options: item.variant_options
+  }))
+},
+
 variant_structure: (event?.data?.variants ?? []).map(item => ({
   keys: Object.keys(item ?? {}),
   product_keys: Object.keys(item?.product ?? {}),
