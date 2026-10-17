@@ -559,6 +559,16 @@ export default async function handler(
 
   debug_raw: {
    
+variant_structure: (event?.data?.variants ?? []).map(item => ({
+  keys: Object.keys(item ?? {}),
+  product_keys: Object.keys(item?.product ?? {}),
+  variant_keys: Object.keys(item?.variant ?? {}),
+  extra_fields: item?.extra_fields ?? null,
+  properties: item?.properties ?? null,
+  meta: item?.meta ?? null,
+  variant: item?.variant ?? null
+})),
+
 variants_debug: (event?.data?.variants ?? []).map(item => ({
   id: item.id ?? null,
   product_id: item.product_id ?? item.product?.id ?? null,
